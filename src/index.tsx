@@ -38,6 +38,11 @@ footer, header, hgroup, main, menu, nav, section {
 /* HTML5 hidden-attribute fix for newer browsers */
 *[hidden] {
     display: none;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+*::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
 }
 body {
   line-height: 1;
@@ -65,7 +70,6 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   line-height: 1.2;
   overflow-x:hidden;
-  
 }
 a {
   text-decoration:none;

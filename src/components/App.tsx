@@ -3,7 +3,9 @@ import RouteView from './Routes';
 
 function App() {
   return (
-    <RouteView/>
+    <>
+      <RouteView/>
+    </>
   );
 }
 

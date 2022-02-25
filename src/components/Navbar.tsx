@@ -7,11 +7,13 @@ const Navbox = styled(motion.nav)`
     width: 100%;
     display: flex;
     position: fixed;
-    justify-content: flex-start;
+    justify-content: space-around;
+    align-items: center;
     top: 0;
-    height: 50px;
+    height: 60px;
     font-size: 20px;
     padding: 20px 60px;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
 `
 
 const Items = styled.ul`
@@ -43,6 +45,17 @@ const Here = styled(motion.div)`
     bottom: -10px;
 `
 
+const Button = styled.div`
+    width: 50px;
+    transition: color 0.3s ease-in-out;
+    height: 26px;
+    border : none;
+    cursor: pointer;
+    &:hover {
+        color: red;
+    }
+`
+
 const navVariants = {
     top: {
       backgroundColor: "rgba(0, 0, 0, 0)",
@@ -56,18 +69,17 @@ const navVariants = {
 
 
 function Navbar() {
-    const {scrollY} = useViewportScroll();
-    const navAnimation = useAnimation();
-    const homem = useMatch("/");
-    const sessionm = useMatch("/session");
-    const concertm = useMatch("/concert");
-    const profilem = useMatch("/profile");
-    const contactm = useMatch("/contact");
+const {scrollY} = useViewportScroll();
+const navAnimation = useAnimation();
+const homem = useMatch("/");
+const sessionm = useMatch("/session");
+const concertm = useMatch("/concert");
+const profilem = useMatch("/profile");
+const contactm = useMatch("/contact");
 
-
-    useEffect(() => {
+useEffect(() => {
         scrollY.onChange(() => {
-          if (scrollY.get() > 100) {
+          if (scrollY.get() > 70) {
             navAnimation.start("scroll");
           } else {
             navAnimation.start("top");
@@ -94,6 +106,8 @@ function Navbar() {
                     <Link to="/contact"> {contactm && <Here layoutId="here"/>}Contact</Link>    
                 </Item>
             </Items>
+            <Link to="/login"><Button >LogIn</Button></Link>  
+                {/* 로그인 했으면, 로그아웃 버튼 만들기 -> Recoil로 받아와서 */}
         </Navbox>
     );
 }
