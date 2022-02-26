@@ -1,7 +1,10 @@
-import { Link, useMatch } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { motion, useAnimation, useViewportScroll } from "framer-motion";
 import { useEffect } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useRecoilState } from "recoil";
+import { isLogin } from "../atom";
 
 const Navbox = styled(motion.nav)`
     width: 100%;
@@ -76,6 +79,9 @@ const sessionm = useMatch("/session");
 const concertm = useMatch("/concert");
 const profilem = useMatch("/profile");
 const contactm = useMatch("/contact");
+const auth = getAuth();
+const navigate = useNavigate();
+const [checkLog, setCheckLog]= useRecoilState(isLogin);
 
 useEffect(() => {
         scrollY.onChange(() => {
@@ -87,28 +93,44 @@ useEffect(() => {
         });
       }, [scrollY, navAnimation]);
 
-    return (
-        <Navbox variants={navVariants} animate={navAnimation} initial={"top"}>
-            <Items>
-                <Item>
-                    <Link to="/"> {homem && <Here layoutId="here"/>}Home</Link>
-                </Item>
-                <Item>
-                    <Link to="/session"> {sessionm && <Here layoutId="here"/>}Session</Link>    
-                </Item>
-                <Item>
-                    <Link to="/concert"> {concertm && <Here layoutId="here"/>}Concert</Link>
-                </Item>
-                <Item>
-                    <Link to="/profile"> {profilem && <Here layoutId="here"/>}Profile</Link>    
-                </Item>
-                <Item>
-                    <Link to="/contact"> {contactm && <Here layoutId="here"/>}Contact</Link>    
-                </Item>
-            </Items>
-            <Link to="/login"><Button >LogIn</Button></Link>  
-                {/* 로그인 했으면, 로그아웃 버튼 만들기 -> Recoil로 받아와서 */}
-        </Navbox>
+      useEffect(()=>{
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setCheckLog(true);
+              }else {
+                setCheckLog(false);
+              }
+            })
+},[])
+
+const onLogOutClick = () => {
+    auth.signOut();
+    navigate("/");
+    auth.signOut();
+}
+
+
+return (
+    <Navbox variants={navVariants} animate={navAnimation} initial={"top"}>
+        <Items>
+            <Item>
+                <Link to="/"> {homem && <Here layoutId="here"/>}Home</Link>
+            </Item>
+            <Item>
+                <Link to="/session"> {sessionm && <Here layoutId="here"/>}Session</Link>    
+            </Item>
+            <Item>
+                <Link to="/concert"> {concertm && <Here layoutId="here"/>}Concert</Link>
+            </Item>
+            <Item>
+                <Link to="/profile"> {profilem && <Here layoutId="here"/>}Profile</Link>    
+            </Item>
+            <Item>
+                <Link to="/contact"> {contactm && <Here layoutId="here"/>}Contact</Link>    
+            </Item>
+        </Items>
+        {checkLog ? <Button onClick={onLogOutClick}>LogOut</Button> : <Link to="/login"><Button >LogIn</Button></Link> } 
+    </Navbox>
     );
 }
 

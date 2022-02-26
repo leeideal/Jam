@@ -3,6 +3,9 @@ import { motion, useAnimation, useViewportScroll} from "framer-motion";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Login from "../components/Login";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useRecoilState } from "recoil";
+import { isLogin } from "../atom";
 
 const Wrapper = styled.div`
     height: 250vh;
@@ -91,6 +94,9 @@ const cellVariants = {
 function Home() {
     const {scrollY} = useViewportScroll();
     const cellAnimation = useAnimation();
+    const auth = getAuth();
+    const [checkLog, setCheckLog]= useRecoilState(isLogin);
+
 
     useEffect(() => {
     //   scrollY.onChange(() => console.log(scrollY.get()));
@@ -102,6 +108,20 @@ function Home() {
             }
         });
         }, [scrollY])
+      
+      
+    useEffect(()=>{
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+              setCheckLog(true);
+            }else {
+            setCheckLog(false);
+            }
+            console.log(checkLog);
+            console.log(user);
+            })
+        },[]) 
+  
     return (
         <Wrapper>
             <Cell>
@@ -109,7 +129,8 @@ function Home() {
                 <Write>
                     <div>Jam</div>
                     <div>당신의 음악을 사람들과 즐겨보세요!</div>
-                    <Link to="/login"><Button >LogIn</Button></Link>    
+                    {checkLog === true ? <Link to="/concert"><Button>Jam하러가기</Button></Link>  :
+                    <Link to="/login"><Button >LogIn</Button></Link>} 
                     {/* 로그인 페이지 만들고, Recoil로 로그인 했는지 안했는지 판한해서 
                         안했으면 -> 로그인 페이지, 했으면 -> 개인 프로필 페이지*/}
                 </Write>

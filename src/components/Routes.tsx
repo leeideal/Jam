@@ -5,6 +5,7 @@ import Home from "../routes/Home";
 import Profile from "../routes/Profile";
 import Session from "../routes/Session";
 import Navbar from "./Navbar";
+import Auth from "./Auth";
 
 function RouteView() {
     return (
@@ -16,6 +17,7 @@ function RouteView() {
                 <Route path="/concert" element={<Concert />}></Route>
                 <Route path="/profile" element={<Profile />}></Route>
                 <Route path="/contact" element={<Contact />}></Route>
+                <Route path="/auth" element={<Auth />}></Route>
             </Routes>
         </Router>
     );

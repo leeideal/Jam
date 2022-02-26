@@ -5,6 +5,8 @@ import firebase from "./firebase";
 import { RecoilRoot } from 'recoil';
 import { createGlobalStyle } from "styled-components";
 
+console.log(firebase);
+
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
