@@ -2,11 +2,14 @@ import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { isLogin } from "../atom";
 import { Link } from "react-router-dom";
+import Logprofile from "../components/Fixprofile";
 
 const Wrapper = styled.div`
     height: 90vh;
     width: 100vw;
     margin-top: 60px;
+    display: flex;
+    justify-content: center;
 `
 
 const FalseWrapper = styled(Wrapper)`
@@ -57,7 +60,9 @@ function Profile() {
     const checkLog = useRecoilValue(isLogin);
     return (
         <>
-            {checkLog ? <Wrapper></Wrapper> : <FalseWrapper>
+            {checkLog ? <Wrapper>
+                <Logprofile />
+            </Wrapper> : <FalseWrapper>
                 <div style={{marginBottom : "50px", fontSize:"42px"}}>로그인 후 사용하실수 있습니다!</div>
                 <Link to="/login"><Button >LogIn</Button></Link>
                 </FalseWrapper>}
