@@ -13,7 +13,7 @@ function RouteView() {
             <Navbar />
             <Routes>
                 <Route path="/*" element={<Home />}></Route>
-                <Route path="/session" element={<Session />}></Route>
+                <Route path="/session/*" element={<Session />}></Route>
                 <Route path="/concert" element={<Concert />}></Route>
                 <Route path="/profile" element={<Profile />}></Route>
                 <Route path="/contact" element={<Contact />}></Route>

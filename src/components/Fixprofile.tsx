@@ -2,7 +2,7 @@ import {useForm} from "react-hook-form"
 import styled from "styled-components";
 import { getFirestore, setDoc, collection, doc, query, where, getDocs } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadString } from "firebase/storage";
-import { createRef, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {v4} from "uuid";
 import { useRecoilValue } from "recoil";
 import { user } from "../atom";
@@ -12,7 +12,7 @@ interface IForm {
     name: string;
     poto: any;
     instrument: any;
-    genre: string;
+    genre: any;
     artist: string;
     music: string;
     introduce: string;
@@ -108,7 +108,7 @@ function Logprofile() {
     const [pname, setPname] = useState("");
     const [ppoto, setPpoto] = useState("") as any;
     const [pinstrument, setPinstrument] = useState([]);
-    const [pgenre, setPgenre] = useState("");
+    const [pgenre, setPgenre] = useState([]);
     const [partist, setPatrist] = useState("");
     const [pmusic, setPmusic] = useState("");
     const [pintroduce, setPintroduce] = useState("");
@@ -152,7 +152,7 @@ function Logprofile() {
                 creatorId: userObj.uid,
                 createdAt: Date.now(),
                 name: data.name,
-                poto : attachment,
+                poto : attachment ? attachment : "https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927",
                 instrument: data.instrument,
                 genre: data.genre,
                 artist: data.artist,
@@ -235,7 +235,7 @@ function Logprofile() {
                 </Item>
                 <Item>
                     <Tag>좋아하는 음악장르</Tag>
-                    <div>{pgenre ? pgenre : "좋아하는 음악장르를 설정해주세요"}</div>
+                    {pgenre ? pgenre.map(prev => <span key={prev}> {prev} </span>) : "원하는 악기를 설정해주세요"}
                 </Item>
                 <Item>
                     <Tag>좋아하는 아티스트</Tag>
@@ -270,7 +270,7 @@ function Logprofile() {
             </Item>
             <Item>
                 <Tag>희망 세션 : </Tag>
-                <Instrument {...register("instrument", {required : true,})} type="checkbox" value="보컬" name="보컬"/>
+                <Instrument {...register("instrument", {required : true,})} type="checkbox" value="보컬"/>
                 <label htmlFor="보컬">보컬</label>
                 <Instrument {...register("instrument", {required : true,})} type="checkbox" value="통기타" />
                 <label htmlFor="통기타">통기타</label>
@@ -287,7 +287,22 @@ function Logprofile() {
             </Item>
             <Item>
                 <Tag>좋아하는 음악장르</Tag>
-                <Genre {...register("genre", {required : true,})} type="text"/>
+                <Genre {...register("genre", {required : true,})} type="checkbox" value="발라드"/>
+                <label htmlFor="발라드">발라드</label>
+                <Genre {...register("genre", {required : true,})} type="checkbox" value="POP" />
+                <label htmlFor="POP">POP</label>
+                <Genre {...register("genre", {required : true,})} type="checkbox" value="K-POP" />
+                <label htmlFor="K-POP">K-POP</label>
+                <Genre {...register("genre", {required : true,})} type="checkbox" value="랩/힙합" />
+                <label htmlFor="랩/힙합">랩/힙합</label>
+                <Genre {...register("genre", {required : true,})} type="checkbox" value="RnB/Soul" />
+                <label htmlFor="RnB/Soul">RnB/Soul</label>
+                <Genre {...register("genre", {required : true,})} type="checkbox" value="인디음악" />
+                <label htmlFor="인디음악">인디음악</label>
+                <Genre {...register("genre", {required : true,})} type="checkbox" value="록/메탈" />
+                <label htmlFor="록/메탈">록/메탈</label>
+                <Genre {...register("genre", {required : true,})} type="checkbox" value="포크/블루스" />
+                <label htmlFor="포크/블루스">포크/블루스</label>
             </Item>
             <Item>
                 <Tag>좋아하는 아티스트</Tag>
