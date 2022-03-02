@@ -31,6 +31,9 @@ function App() {
             setCheckLog(true);
             setUserObj({uid:user.uid});
             checkProfile(user.uid);
+            if (localStorage.getItem("uid") === null){
+              localStorage.setItem("uid", user.uid);
+            }
           }else {
             setCheckLog(false);
             setUserObj({uid : null});

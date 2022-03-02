@@ -106,6 +106,7 @@ useEffect(() => {
 const onLogOutClick = () => {
     auth.signOut();
     navigate("/");
+    localStorage.clear();
     auth.signOut();
 }
 

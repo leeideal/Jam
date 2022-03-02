@@ -6,7 +6,7 @@ export interface IUser {
 
 export const isLogin = atom({
     key : "isLogin",
-    default : false
+    default : true
 })
 
 export const user = atom<IUser>({
