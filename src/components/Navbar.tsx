@@ -83,6 +83,7 @@ const auth = getAuth();
 const navigate = useNavigate();
 const [checkLog, setCheckLog]= useRecoilState(isLogin);
 
+
 useEffect(() => {
         scrollY.onChange(() => {
           if (scrollY.get() > 70) {

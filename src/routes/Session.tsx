@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { getFirestore, collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import { getFirestore, collection, onSnapshot, query, orderBy, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 
@@ -26,6 +26,7 @@ const Profile = styled.div`
     align-items: center;
     border-radius: 15px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+    margin-bottom: 5%;
 `
 
 const ProfilePoto = styled.img`
@@ -64,14 +65,15 @@ function Session() {
 
 
     useEffect(() => {
-        const dbProfile = query(collection(dbService, "profiles"),orderBy("createdAt", "desc"));
+        const dbAllProfile = query(collection(dbService, "profiles"),orderBy("createdAt", "desc"));
+
         const snapshot = (snapshot : any) => {
             const newProfile = snapshot.docs.map((doc : any) => ({
             ...doc.data()
         }));
         setProfileArray(newProfile);
         }
-        onSnapshot(dbProfile, snapshot);
+        onSnapshot(dbAllProfile, snapshot);
     },[]);
     console.log(profileArray);
     

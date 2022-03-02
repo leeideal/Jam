@@ -16,13 +16,3 @@ export const user = atom<IUser>({
     }
 })
 
-
-export const profilecheck = atom({
-    key : "profile",
-    default : false
-})
-
-export const firstProfile = atom({
-    key : "firstprofile",
-    default : true
-})
