@@ -2,7 +2,7 @@ import { Link, useMatch, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { motion, useAnimation, useViewportScroll } from "framer-motion";
 import { useEffect } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { useRecoilState } from "recoil";
 import { isLogin } from "../atom";
 
@@ -17,23 +17,25 @@ const Navbox = styled(motion.nav)`
     font-size: 20px;
     padding: 20px 60px;
     border-bottom: 1px solid rgba(0,0,0,0.2);
+    z-index: 100;
 `
 
-const Items = styled.ul`
+const Items = styled.div`
     display: flex;
     align-items: center;
 `;
 
-const Item = styled.li`
+const Item = styled.div`
     position: relative;
     width: 100px;
     margin-right: 20px;
-    transition: color 0.3s ease-in-out;
     display: flex;
     text-align: center;
     justify-content: center;
     flex-direction: column;
-    &:hover {
+    cursor: pointer;
+    div:hover {
+        transition: color 0.3s ease-in-out;
         color: red;
     }
 `
@@ -85,24 +87,16 @@ const [checkLog, setCheckLog]= useRecoilState(isLogin);
 
 
 useEffect(() => {
+        console.log(scrollY.get())
         scrollY.onChange(() => {
-          if (scrollY.get() > 70) {
+            console.log(scrollY.get());
+          if (scrollY.get() > 100) {
             navAnimation.start("scroll");
           } else {
             navAnimation.start("top");
           }
         });
-      }, [scrollY, navAnimation]);
-
-      useEffect(()=>{
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setCheckLog(true);
-              }else {
-                setCheckLog(false);
-              }
-            })
-},[])
+}, [scrollY.get()])
 
 const onLogOutClick = () => {
     auth.signOut();
@@ -116,19 +110,19 @@ return (
     <Navbox variants={navVariants} animate={navAnimation} initial={"top"}>
         <Items>
             <Item>
-                <Link to="/"> {homem && <Here layoutId="here"/>}Home</Link>
+                <div onClick={()=> navigate("/")}>{homem && <Here layoutId="here"/>}Home</div>
             </Item>
             <Item>
-                <Link to="/session"> {sessionm && <Here layoutId="here"/>}Session</Link>    
+                <div onClick={()=> navigate("/session")}>{sessionm && <Here layoutId="here"/>}Session</div>    
             </Item>
             <Item>
-                <Link to="/concert"> {concertm && <Here layoutId="here"/>}Concert</Link>
+                <div onClick={()=> navigate("/concert")}>{concertm && <Here layoutId="here"/>}Concert</div>    
             </Item>
             <Item>
-                <Link to="/profile"> {profilem && <Here layoutId="here"/>}Profile</Link>    
+                <div onClick={()=> navigate("/profile")}>{profilem && <Here layoutId="here"/>}Profile</div>     
             </Item>
             <Item>
-                <Link to="/contact"> {contactm && <Here layoutId="here"/>}Contact</Link>    
+                <div onClick={()=> navigate("/contact")}>{contactm && <Here layoutId="here"/>}Contact</div>     
             </Item>
         </Items>
         {checkLog ? <Button onClick={onLogOutClick}>LogOut</Button> : <Link to="/login"><Button >LogIn</Button></Link> } 

@@ -1,9 +1,7 @@
 import styled from "styled-components";
-import { getFirestore, collection, onSnapshot, query, orderBy, where } from "firebase/firestore";
+import { getFirestore, collection, onSnapshot, query, orderBy} from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useViewportScroll } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 
 const Wrapper = styled.div`
@@ -15,7 +13,7 @@ const Wrapper = styled.div`
 `
 
 const SessionBox = styled.div`
-    margin: 10% 0;
+    margin: 5% 0;
     width: 60%;
     height: 100vh;
     display: flex;
@@ -31,6 +29,7 @@ const Profile = styled(motion.div)`
     border-radius: 15px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
     margin-bottom: 10%;
+    cursor: pointer;
 `
 
 const ProfilePoto = styled.img`
@@ -63,13 +62,42 @@ const Overlay = styled(motion.div)`
 
 const BigProfile = styled(motion.div)`
     background-color: white;
-    width: 80%;
+    width: 50%;
     height: 80%;
     border-radius: 10px;
     position: relative;
     display: flex;
     flex-direction: column;
 `
+
+const BigItem = styled.div`
+    margin: 5% 15%;
+`
+
+const BigHeadItem = styled(BigItem)`
+    margin-top: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    div{
+        margin-right: 10%;
+    }
+`
+
+const Img = styled.img`
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+`
+
+const Introduce = styled.div`
+
+`
+
+const Tag = styled.div`
+
+`
+
 
 interface SnapshotData {
     artist: string;
@@ -115,11 +143,11 @@ function Session() {
         <Wrapper>
             <SessionBox>
                 {profileArray.map((prev) => <Profile layoutId={prev.creatorId} key={prev.creatorId} onClick={() => profileClick(prev)}>
-                    <ProfilePoto src={prev.poto}/>
+                    {clickBox ? null : <><ProfilePoto src={prev.poto}/>
                     <ProfileName>{prev.name}</ProfileName>
                     <ProfiletSession>
                         {prev.instrument.map(prev => <div>{prev}</div>)}
-                    </ProfiletSession>
+                    </ProfiletSession></>}
                 </Profile>)}
             </SessionBox>
             <AnimatePresence>
@@ -127,7 +155,30 @@ function Session() {
               <>
                 <Overlay onClick={()=> setClickBox(false)} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                     <BigProfile layoutId={clickDb?.creatorId}>
-                        <div>하이</div>
+                        {clickBox ? <><BigHeadItem>
+                            <Img src={clickDb?.poto}></Img>
+                            <Introduce>{clickDb?.introduce}</Introduce>
+                        </BigHeadItem>
+                        <BigItem>
+                            <Tag>이름 : </Tag>
+                            {clickDb?.name}
+                        </BigItem>
+                        <BigItem>
+                            <Tag>세션 : </Tag>
+                            {clickDb?.instrument.map(prev => <span>{prev}</span>)}
+                        </BigItem>
+                        <BigItem>
+                            <Tag>선호하는 장르 : </Tag>
+                            {clickDb?.genre.map(prev => <span>{prev}</span>)}
+                        </BigItem>
+                        <BigItem>
+                            <Tag>좋아하는 아티스트 : </Tag>
+                            {clickDb?.artist}
+                        </BigItem>
+                        <BigItem>
+                            <Tag>하고 싶은 곡 : </Tag>
+                            {clickDb?.music}
+                        </BigItem></> : null}
                     </BigProfile>
                 </Overlay>
               </>

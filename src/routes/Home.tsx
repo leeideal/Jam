@@ -135,7 +135,7 @@ function Home() {
                         안했으면 -> 로그인 페이지, 했으면 -> 개인 프로필 페이지*/}
                 </Write>
             </Cell>
-            <CellM variants={cellVariants} transition={{duration : 0.4}} animate={cellAnimation} initial={"top"}>
+            <CellM variants={cellVariants} transition={{duration : 0.3}} animate={cellAnimation} initial={"top"}>
                 <Write>
                     <div>Jam</div>
                     <div>다양한 사람들과 함께 음악을 즐겨보세요!</div>
