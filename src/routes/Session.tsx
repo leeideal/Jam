@@ -18,6 +18,7 @@ const SessionBox = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
 `
 
 const Profile = styled(motion.div)`
@@ -30,6 +31,15 @@ const Profile = styled(motion.div)`
     box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
     margin-bottom: 10%;
     cursor: pointer;
+    &:hover{
+        transition: 0.3s ease-in-out;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+    }
+    &:not(:hover){
+        transition: 0.3s ease-in-out;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+
+    }
 `
 
 const ProfilePoto = styled.img`
@@ -98,6 +108,12 @@ const Tag = styled.div`
 
 `
 
+const Title = styled.div`
+    font-size: 48px;
+    font-weight: 600;
+    margin-bottom: 50px;
+`
+
 
 interface SnapshotData {
     artist: string;
@@ -142,19 +158,20 @@ function Session() {
     return (
         <Wrapper>
             <SessionBox>
-                {profileArray.map((prev) => <Profile layoutId={prev.creatorId} key={prev.creatorId} onClick={() => profileClick(prev)}>
-                    {clickBox ? null : <><ProfilePoto src={prev.poto}/>
+                <Title>매칭 세션</Title>
+                {profileArray.map((prev) => <Profile key={prev.creatorId} onClick={() => profileClick(prev)}>
+                    <ProfilePoto src={prev.poto}/>
                     <ProfileName>{prev.name}</ProfileName>
                     <ProfiletSession>
                         {prev.instrument.map(prev => <div>{prev}</div>)}
-                    </ProfiletSession></>}
+                    </ProfiletSession>
                 </Profile>)}
             </SessionBox>
             <AnimatePresence>
             {clickBox ? (
               <>
-                <Overlay onClick={()=> setClickBox(false)} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                    <BigProfile layoutId={clickDb?.creatorId}>
+                <Overlay onClick={()=> setClickBox(false)} animate={{ opacity: 1 }} transition={{duration: 0.5}} exit={{ opacity: 0 }}>
+                    <BigProfile>
                         {clickBox ? <><BigHeadItem>
                             <Img src={clickDb?.poto}></Img>
                             <Introduce>{clickDb?.introduce}</Introduce>

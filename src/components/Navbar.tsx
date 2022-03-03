@@ -87,9 +87,7 @@ const [checkLog, setCheckLog]= useRecoilState(isLogin);
 
 
 useEffect(() => {
-        console.log(scrollY.get())
         scrollY.onChange(() => {
-            console.log(scrollY.get());
           if (scrollY.get() > 100) {
             navAnimation.start("scroll");
           } else {
