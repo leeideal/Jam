@@ -15,6 +15,7 @@ interface IForm {
     place: string;
     music: string;
     introduce: string;
+    instarId : string;
 }
 
 interface IDb {
@@ -26,6 +27,7 @@ interface IDb {
     place: string;
     music: string;
     introduce: string;
+    instarId : string;
 }
 
 const Wrapper = styled.div`
@@ -197,6 +199,7 @@ function Concert() {
                 place: data.place,
                 music: data.music,
                 introduce: data.introduce,
+                instarId : data.instarId
             }
 
             await setDoc(doc(collection(dbService, "teams"), `${Date.now()}`), dataObj);
@@ -207,6 +210,7 @@ function Concert() {
             setValue("place", "");
             setValue("music", "");
             setValue("introduce", "");
+            setValue("instarId", "");
 
 
 
@@ -234,6 +238,7 @@ function Concert() {
                 place: data.place,
                 music: data.music,
                 introduce: data.introduce,
+                instarId : data.instarId
             }
 
             await updateDoc(doc(dbService, "teams", `${clickDb!.createdAt}`), dataObj);
@@ -244,6 +249,7 @@ function Concert() {
             setValue("place", "");
             setValue("music", "");
             setValue("introduce", "");
+            setValue("instarId", "");
 
 
             window.alert("수정되었습니다!");
@@ -283,6 +289,7 @@ function Concert() {
         setValue("music", clickDb!.music);
         setValue("place", clickDb!.place);
         setValue("introduce", clickDb!.introduce);
+        setValue("instarId", clickDb!.instarId);
     }
 
 
@@ -367,6 +374,10 @@ function Concert() {
                                         <Tag>팀 소개 :</Tag>
                                         <Team {...register("introduce", {required : true,})} type="text" maxLength={30} style={{width:"50%"}}/>
                                     </CreatItem>
+                                    <CreatItem>
+                                        <Tag>팀장 인스타그램 아이디 :</Tag>
+                                        <Team {...register("instarId", {required : true,})} type="text" />
+                                    </CreatItem>
                                     <Submit type = "submit" value="저장하기"/>
                                 </CreateTeamSubmit>
                         </> 
@@ -394,6 +405,10 @@ function Concert() {
                         <BigItem>
                             <BigTag>팀 소개 : </BigTag>
                             {clickDb?.introduce}
+                        </BigItem>
+                        <BigItem>
+                            <BigTag>팀 Contact</BigTag>
+                            {clickDb?.instarId}
                         </BigItem>
                         {clickDb?.creatorId === localStorage.getItem("uid") ? <button onClick={clickFix}>수정하기</button> : null}
                         </> : null}
@@ -461,6 +476,10 @@ function Concert() {
                                     <CreatItem>
                                         <Tag>팀 소개 :</Tag>
                                         <Team {...register("introduce", {required : true,})} type="text" maxLength={30} style={{width:"50%"}} placeholder="최대 30자"/>
+                                    </CreatItem>
+                                    <CreatItem>
+                                        <Tag>팀장 인스타그램 아이디 :</Tag>
+                                        <Team {...register("instarId", {required : true,})} type="text" placeholder="lee_sang1124"/>
                                     </CreatItem>
                                     <Submit type = "submit" value="저장하기"/>
                                 </CreateTeamSubmit>

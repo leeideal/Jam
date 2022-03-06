@@ -16,6 +16,7 @@ interface IForm {
     artist: string;
     music: string;
     introduce: string;
+    instarId: string;
 }
 
 const Wapper = styled.form`
@@ -69,6 +70,10 @@ const Introduce = styled.input`
 
 `
 
+const Instar = styled.input`
+
+`
+
 const Submit = styled.input`
     width: 60px;
 `
@@ -112,6 +117,7 @@ function Logprofile() {
     const [partist, setPatrist] = useState("");
     const [pmusic, setPmusic] = useState("");
     const [pintroduce, setPintroduce] = useState("");
+    const [pinstar, setPinstar] = useState("");
 
     const potoRef = useRef<HTMLInputElement>(null);
 
@@ -157,7 +163,8 @@ function Logprofile() {
                 genre: data.genre,
                 artist: data.artist,
                 music: data.music,
-                introduce: data.introduce
+                introduce: data.introduce,
+                instarId : data.instarId
             }
 
             await setDoc(doc(collection(dbService, "profiles"), `${userObj.uid}`), dataObj);
@@ -192,6 +199,7 @@ function Logprofile() {
             setPatrist(doc.data().artist);
             setPmusic(doc.data().music);
             setPintroduce(doc.data().introduce);
+            setPinstar(doc.data().instarId);
             console.log("querySnapshot.forEach한 결과 : ", doc.id, " => ", doc.data())
         });
     }
@@ -211,6 +219,7 @@ function Logprofile() {
         setValue("music", pmusic);
         setValue("introduce", pintroduce);
         setValue("poto", ppoto);
+        setValue("instarId", pinstar);
         setAttachment(ppoto)
     }
 
@@ -221,7 +230,7 @@ function Logprofile() {
             <Showprofile>
                 <Item style={{display: "flex", justifyContent :"space-between"}}>
                 <Items>
-                    <Tag>이름 : </Tag>
+                    <Tag>활동명 : </Tag>
                     <div>{pname ? pname : "이름을 설정해주세요"}</div>
                 </Items>
                 <Items>
@@ -249,6 +258,10 @@ function Logprofile() {
                     <Tag>간단한 자기소개</Tag>
                     <div>{pintroduce ? pintroduce : "자신을 소개해주세요!"}</div>
                 </Item>
+                <Item>
+                    <Tag>인스타그램 아이디</Tag>
+                    <div>{pinstar ? pinstar : "아이디를 입력해주세요"}</div>
+                </Item>
                 <Submit onClick={clickfix} type = "submit" value="수정하기"/>
             </Showprofile>
             : 
@@ -256,8 +269,8 @@ function Logprofile() {
             <Wapper onSubmit={handleSubmit(onValid, unValid)}>
             <Item style={{display: "flex", justifyContent :"space-between"}}>
                 <Items>
-                    <Tag>닉네임 : </Tag>
-                    <Name {...register("name", {required : true,})} type="text"/>
+                    <Tag>활동명 : </Tag>
+                    <Name {...register("name", {required : true,})} type="text" placeholder="Ex) 제제"/>
                 </Items>
                 <Items>
                     <Tag>프로필 사진 : </Tag>
@@ -306,15 +319,19 @@ function Logprofile() {
             </Item>
             <Item>
                 <Tag>좋아하는 아티스트</Tag>
-                <Singer {...register("artist", {required : true,})} type="text"/>
+                <Singer {...register("artist", {required : true,})} type="text" placeholder="Ex) 아이유, 백현"/>
             </Item>
             <Item>
                 <Tag>하고싶은 곡</Tag>
-                <Music {...register("music", {required : true,})} type="text"/>
+                <Music {...register("music", {required : true,})} type="text" placeholder="Ex) 삐삐, Square"/>
             </Item>
             <Item>
                 <Tag>간단한 자기소개</Tag>
-                <Introduce {...register("introduce", {required : true,})} type="text" style={{width:"50%"}}/>
+                <Introduce {...register("introduce", {required : true,})} type="text" style={{width:"50%"}} placeholder="30자 이내" maxLength={30}/>
+            </Item>
+            <Item>
+                <Tag>인스타그램 아이디</Tag>
+                <Instar {...register("instarId", {required : true,})} type="text" placeholder="Ex) leeideal"/>
             </Item>
             <Submit type = "submit" value="저장하기"/>
         </Wapper> 

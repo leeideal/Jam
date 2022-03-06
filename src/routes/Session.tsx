@@ -126,6 +126,7 @@ interface SnapshotData {
     music: string;
     name: string;
     poto: string;
+    instarId : string
 }
 
 
@@ -195,7 +196,12 @@ function Session() {
                         <BigItem>
                             <Tag>하고 싶은 곡 : </Tag>
                             {clickDb?.music}
-                        </BigItem></> : null}
+                        </BigItem>
+                        <BigItem>
+                            <Tag>Contact with Instargram : </Tag>
+                            {clickDb?.instarId}
+                        </BigItem>
+                        </> : null}
                     </BigProfile>
                 </Overlay>
               </>
