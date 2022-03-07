@@ -17,15 +17,22 @@ const Navbox = styled(motion.nav)`
     font-size: 20px;
     padding: 20px 60px;
     border-bottom: 1px solid rgba(0,0,0,0.2);
-    z-index: 100;
+    z-index: 20;
 `
 
 const Items = styled.div`
+    @media (max-width: 450px) {
+        width: 38vh;
+    }
     display: flex;
     align-items: center;
 `;
 
 const Item = styled.div`
+    @media (max-width: 450px) {
+        width: 40px;
+        font-size: 16px ;
+    }
     position: relative;
     width: 100px;
     margin-right: 20px;
@@ -51,6 +58,10 @@ const Here = styled(motion.div)`
 `
 
 const Button = styled.div`
+    @media (max-width: 450px) {
+        font-size: 16px ;
+        height: 19px;
+    }
     width: 50px;
     transition: color 0.3s ease-in-out;
     height: 26px;
@@ -117,7 +128,7 @@ return (
                 <div onClick={()=> navigate("/concert")}>{concertm && <Here layoutId="here"/>}Concert</div>    
             </Item>
             <Item>
-                <div onClick={()=> navigate("/profile")}>{profilem && <Here layoutId="here"/>}Profile</div>     
+                <div onClick={()=> navigate("/profile")}>{profilem && <Here layoutId="here"/>} Profile</div>     
             </Item>
             <Item>
                 <div onClick={()=> navigate("/contact")}>{contactm && <Here layoutId="here"/>}Contact</div>     

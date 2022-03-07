@@ -6,6 +6,7 @@ import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {getAuth,signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,FacebookAuthProvider} from 'firebase/auth';
 import { useState } from "react";
+import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 
 const LoginOverlay = styled(motion.div)`
@@ -21,6 +22,16 @@ const LoginOverlay = styled(motion.div)`
 `
 
 const LoginBox = styled(motion.div)`
+    @media screen and (max-width: 500px) {
+        padding: 5%;
+        padding-top:100px;
+        width: 80vw;
+    }
+    @media screen and (min-width: 500px) and (max-width: 1250px) {
+        padding: 0% 10% 5% 10%;
+        padding-top:100px ;
+        width: 80vw;
+    }
     background-color: white;
     width: 60vw;
     height: 80vh;
@@ -28,39 +39,175 @@ const LoginBox = styled(motion.div)`
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 20%;
+    justify-content: center;
+    padding: 5% 15% 10%;
 `
 
 const Title = styled.div`
-    
+    font-size: 38px;
+    margin-bottom: 50px;
 `
 
 const IdLogIn = styled.input`
-
+    border-top : none;
+    border-left : none;
+    border-right : none;
+    height: 50px ;
+    color: rgba(0,0,0,0.9);
+    font-size: 18px;
+    &:hover{
+        border-bottom : 1px solid rgba(0,0,0,0.9);
+        transition: 0.4s ease-in-out;
+        color: rgba(0,0,0,0.9);
+    }
+    &:hover::placeholder{
+        color : rgba(0,0,0,0.9);
+        transition: 0.4s ease-in-out;
+    }
+    &:not(:hover){
+        transition: 0.4s ease-in-out;
+        border-bottom : 1px solid rgba(0,0,0,0.25);
+    }
+    &:not(:hover)::placeholder{
+        color: rgba(0,0,0,0.25);
+        transition: 0.4s ease-in-out;
+    }
+    &:focus{
+        border-bottom : 1px solid rgba(0,0,0,0.9);
+        color: rgba(0,0,0,0.9);
+    }
+    margin-bottom: 20px;
 `
 
 const PassLogIn = styled(IdLogIn)`
-
-`
-
-const DefaultWapper = styled.div`
-
+    margin-bottom: 40px;
 `
 
 const LogButton = styled.input`
-
+    height: 54px;
+    border: none;
+    border-radius: 7px;
+    background-color: #444444;
+    color: white;
+    margin-bottom:10px;
+    cursor:pointer;
+    &:hover{
+        transition: 0.4s ease-in-out;
+        background-color: white;
+        border : 1px solid  #444444;
+        color: #444444;
+    }
+    &:hover::placeholder{
+        transition: 0.4s ease-in-out;
+        background-color: #444444;
+        color: white;
+    }
 `
 
 const GoogleLog = styled.button`
-
+    @media screen and (max-width: 630px) {
+        svg{
+            display:  none;
+        }
+    }
+    cursor:pointer;
+    display: flex;
+    align-items: center;
+    justify-content:center ;
+    height: 54px;
+    border: none;
+    border-radius: 7px;
+    margin-bottom: 10px;
+    background-color: #bdbdbd;
+    color: white;
+    font-size: 18px;
+    &:hover{
+        transition: 0.4s ease-in-out;
+        background-color: white;
+        border : 1px solid   #bdbdbd;
+        color:  #bdbdbd;
+    }
+    &:not(:hover){
+        transition: 0.4s ease-in-out;
+        background-color: #bdbdbd;
+        color: white;
+    }
+    position: relative;
+    svg{
+        position: absolute;
+        left: 0;
+        margin-left: 60px ;
+    }
+    
 `
 
-const FaceBookLogIn = styled(GoogleLog)`
-
+const FaceBookLogIn = styled.button`
+    @media screen and (max-width: 630px) {
+        svg{
+            display:  none;
+        }
+    }
+    cursor:pointer;
+    display: flex;
+    align-items: center;
+    justify-content:center ;
+    height: 54px;
+    border: none;
+    border-radius: 7px;
+    background-color: #333333;
+    color: white;
+    font-size: 18px;
+    &:hover{
+        transition: 0.4s ease-in-out;
+        background-color: white;
+        border : 1px solid   #3d548e;
+        color:  #3d548e;
+    }
+    &:not(:hover){
+        transition: 0.4s ease-in-out;
+        background-color: #3d548e;
+        color: white;
+    }
+    position: relative;
+    svg{
+        position: absolute;
+        left: 0;
+        margin-left: 58px;
+    }
 `
 
 const Welcome = styled.button`
+    font-size: 18px;
+    height: 54px;
+    border: none;
+    border-radius: 7px;
+    background-color: #444444;
+    color: white;
+    cursor:pointer;
+    &:hover{
+        transition: 0.4s ease-in-out;
+        background-color: white;
+        border : 1px solid  #444444;
+        color: #444444;
+    }
+    &:hover::placeholder{
+        transition: 0.4s ease-in-out;
+        background-color: #444444;
+        color: white;
+    }
+    margin-bottom: 40px;
+`
 
+const LoginForm = styled.form`
+    display:flex;
+    flex-direction: column;
+`
+
+const Bar = styled.div`
+    background-color: #444444;
+    height: 1px;
+    border-radius: 10px;
+    margin-bottom: 40px;
 `
 
 
@@ -117,21 +264,16 @@ function Login() {
                             <Link to="/">
                                 <FontAwesomeIcon style={{position : "absolute" , top : 30, right: 30}} icon={faArrowAltCircleLeft} size="2x"/>
                             </Link>
-                            <Title>JAM - Log In</Title>
-                            <form onSubmit={onSubmit}>
+                            <Title>LOGIN</Title>
+                            <LoginForm onSubmit={onSubmit}>
                                 <IdLogIn onChange={onChange} value={email} name="email" type="text" placeholder="Email" required />
                                 <PassLogIn onChange={onChange} value={password} name="password" type="password" placeholder="Password" required />
-                                <DefaultWapper>
-                                    <LogButton type="submit" value={"Log In"}/>
-                                    <Link to="/auth">
-                                        <Welcome>Sign Up</Welcome>
-                                    </Link>
-                                </DefaultWapper>
-                            </form>
-                            <DefaultWapper>
-                                <GoogleLog onClick={onSocialClick} name="google">Continue with Google  </GoogleLog>
-                                <FaceBookLogIn onClick={onSocialClick} name="facebook">Continue with FaceBook </FaceBookLogIn>
-                            </DefaultWapper>
+                                <LogButton type="submit" value={"Log In"} style={{fontSize:"18px"}}/>
+                                <Welcome onClick={() => navigate("/auth")}>Sign Up</Welcome>
+                            </LoginForm>
+                                <Bar></Bar>
+                                <GoogleLog onClick={onSocialClick} name="google"> <FontAwesomeIcon icon={faGoogle} size="2x"/> <div>Sing in with Google</div>  </GoogleLog>
+                                <FaceBookLogIn onClick={onSocialClick} name="facebook"> <FontAwesomeIcon icon={faFacebook} size="2x"/><div>Sing in with FaceBook</div> </FaceBookLogIn>
                         </LoginBox>
                     </LoginOverlay>
                 ) : null}
