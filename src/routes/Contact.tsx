@@ -12,12 +12,19 @@ const Wapper = styled.div`
 `
 
 const Title = styled.div`
+    @media screen and (max-width: 460px) {
+        font-size: 28px;
+    }
     margin-bottom: 50px;
-    font-size: 32px;
+    font-size: 40px;
     font-weight: 600;
 `
 
 const MyProfileBox = styled.div`
+    @media screen and (max-width: 460px) {
+        width: 90%;
+        height: 70%;
+    }
     width: 70%;
     height: 70%;
     border-radius: 50px;
@@ -28,8 +35,11 @@ const MyProfileBox = styled.div`
 `
 
 const MyProfile = styled(motion.div)`
+    @media screen and (max-width: 460px) {
+        width: 70%;
+    }
     width: 50%;
-    height: 25%;
+    height: 200px;
     border-radius: 50px;
     display: flex;
     flex-direction: column;
@@ -40,6 +50,9 @@ const MyProfile = styled(motion.div)`
 `
 
 const MyName = styled.div`
+    @media screen and (max-width: 460px) {
+        margin-bottom: 15px ;
+    }
     font-size: 28px;
     font-weight: 500;
     margin-bottom: 30px;
@@ -49,12 +62,13 @@ const MyInfo = styled.a`
     margin-bottom: 5px;
 `
 
+
 const boxVariante : Variants = {
     hover : {
         boxShadow: "rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px"
     },
     click: {
-        width : "25%",
+        width : "200px",
         borderRadius: "50%" ,
         boxShadow: "rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px"
     },
@@ -66,7 +80,7 @@ function Contact() {
 
     return (
         <Wapper>
-            <Title>Want to know the Creator?</Title>
+            <Title>Drag and Click Me!</Title>
             <MyProfileBox ref={myProfileBoxRef}>
                 <MyProfile
                 drag
