@@ -20,7 +20,7 @@ const FalseWrapper = styled(Wrapper)`
 `
 
 const Button = styled.button`
-    background:#1AAB8A;
+    background:#8fc4ee;
     color:#fff;
     border:none;
     position:relative;
@@ -32,7 +32,7 @@ const Button = styled.button`
     outline:none;
     &:hover{
         background:#fff;
-        color:#1AAB8A;
+        color:#8fc4ee;
     }
     &:before, &:after{
         content:'';
@@ -41,7 +41,7 @@ const Button = styled.button`
         right:0;
         height:2px;
         width:0;
-        background: #1AAB8A;
+        background: #8fc4ee;
         transition:400ms ease all;
     }
     &:after{

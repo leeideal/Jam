@@ -24,12 +24,10 @@ const LoginOverlay = styled(motion.div)`
 const LoginBox = styled(motion.div)`
     @media screen and (max-width: 500px) {
         padding: 5%;
-        padding-top:100px;
         width: 80vw;
     }
     @media screen and (min-width: 500px) and (max-width: 1250px) {
         padding: 0% 10% 5% 10%;
-        padding-top:100px ;
         width: 80vw;
     }
     background-color: white;

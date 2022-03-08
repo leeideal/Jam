@@ -148,7 +148,7 @@ function Logprofile() {
     }
 
     const onValid = async (data : IForm) => {
-        console.log("hello")
+        console.log("hello");
         try {
             const fileRef = ref(storageService, `${userObj.uid}/${v4()}`);
             const response = await uploadString(fileRef, attachment);
@@ -161,8 +161,8 @@ function Logprofile() {
                 poto : attachment ? attachment : "https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927",
                 instrument: data.instrument,
                 genre: data.genre,
-                artist: data.artist,
-                music: data.music,
+                artist: data.artist.split(","),
+                music: data.music.split(","),
                 introduce: data.introduce,
                 instarId : data.instarId
             }
@@ -196,8 +196,8 @@ function Logprofile() {
             setPpoto(doc.data().poto);
             setPinstrument(doc.data().instrument);
             setPgenre(doc.data().genre);
-            setPatrist(doc.data().artist);
-            setPmusic(doc.data().music);
+            setPatrist(doc.data().artist.join(","));
+            setPmusic(doc.data().music.join(","));
             setPintroduce(doc.data().introduce);
             setPinstar(doc.data().instarId);
             console.log("querySnapshot.forEach한 결과 : ", doc.id, " => ", doc.data())
@@ -252,7 +252,7 @@ function Logprofile() {
                 </Item>
                 <Item>
                     <Tag>하고싶은 곡</Tag>
-                    <div>{pmusic ? partist : "연주하고 싶은 곡을 설정해주세요"}</div>
+                    <div>{pmusic ? pmusic : "연주하고 싶은 곡을 설정해주세요"}</div>
                 </Item>
                 <Item>
                     <Tag>간단한 자기소개</Tag>
@@ -323,7 +323,7 @@ function Logprofile() {
             </Item>
             <Item>
                 <Tag>하고싶은 곡</Tag>
-                <Music {...register("music", {required : true,})} type="text" placeholder="Ex) 삐삐, Square"/>
+                <Music {...register("music", {required : true,})} type="text" placeholder="Ex) 아이유-삐삐, 백예린-Square"/>
             </Item>
             <Item>
                 <Tag>간단한 자기소개</Tag>

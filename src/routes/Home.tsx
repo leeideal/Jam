@@ -41,7 +41,7 @@ const Button = styled(motion.button)`
         padding: 0 0.3em ;
     }
     margin-top: 100px;
-    background:#1AAB8A;
+    background:#8fc4ee;
     color:#fff;
     border:none;
     position:relative;
@@ -53,7 +53,7 @@ const Button = styled(motion.button)`
     outline:none;
     &:hover{
         background:#fff;
-        color:#1AAB8A;
+        color:#8fc4ee;
     }
     &:before, &:after{
         content:'';
@@ -62,7 +62,7 @@ const Button = styled(motion.button)`
         right:0;
         height:2px;
         width:0;
-        background: #1AAB8A;
+        background: #8fc4ee;
         transition:400ms ease all;
     }
     &:after{
