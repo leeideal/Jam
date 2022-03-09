@@ -404,7 +404,7 @@ function Logprofile() {
                 </ProfileBasicInfo>
                     <ProfileMusicInfo>
                         <Item>
-                            <Tag>Session </Tag>
+                            <Tag>Session (최대 3개) </Tag>
                             <Instrument {...register("instrument", {required : true,})} type="checkbox" value="보컬"/>
                             <label htmlFor="보컬">보컬</label>
                             <Instrument {...register("instrument", {required : true,})} type="checkbox" value="통기타" />

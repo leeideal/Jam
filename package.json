@@ -20,6 +20,7 @@
     "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
     "react-hook-form": "^7.27.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
@@ -34,7 +35,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy" : "gh-pages -d build",
+    "deploy": "gh-pages -d build",
     "predeploy": "npm run build"
   },
   "eslintConfig": {
@@ -56,9 +57,10 @@
     ]
   },
   "devDependencies": {
+    "@types/react-helmet": "^6.1.5",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.23",
     "@types/uuid": "^8.3.4"
   },
-  "homepage":"http://leeideal.github.io/Jam"
+  "homepage": "http://leeideal.github.io/Jam"
 }

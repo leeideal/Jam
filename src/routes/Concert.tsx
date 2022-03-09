@@ -796,7 +796,7 @@ function Concert() {
                                         <Team {...register("name", {required : true,})} type="text" maxLength={10}/>
                                     </CreatItem>
                                     <CreatItem>
-                                        <CreatTeamTag>Music Genre</CreatTeamTag>
+                                        <CreatTeamTag>Music Genre (최대 3개)</CreatTeamTag>
                                         <TeamCheckBox {...register("genre", {required : true,})} type="checkbox" value="발라드"/>
                                         <label htmlFor="발라드">발라드</label>
                                         <TeamCheckBox {...register("genre", {required : true,})} type="checkbox" value="POP" />
@@ -912,7 +912,7 @@ function Concert() {
                                         <Team {...register("name", {required : true,})} type="text" maxLength={10} placeholder="최대 10자"/>
                                     </CreatItem>
                                     <CreatItem>
-                                        <CreatTeamTag>Music Genre</CreatTeamTag>
+                                        <CreatTeamTag>Music Genre (최대 3개)</CreatTeamTag>
                                         <TeamCheckBox {...register("genre", {required : true,})} type="checkbox" value="발라드"/>
                                         <label htmlFor="발라드">발라드</label>
                                         <TeamCheckBox {...register("genre", {required : true,})} type="checkbox" value="POP" />
