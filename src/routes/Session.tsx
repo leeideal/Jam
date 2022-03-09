@@ -1,7 +1,9 @@
 import styled from "styled-components";
-import { getFirestore, collection, onSnapshot, query, orderBy} from "firebase/firestore";
+import { getFirestore, collection, onSnapshot, query, orderBy, deleteDoc, doc} from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const Wrapper = styled.div`
@@ -95,9 +97,9 @@ const ProfileName = styled.div`
 const ProfiletSession = styled.div`
     display: flex;
     position : absolute;
-    left: 40%;
+    left: 36%;
     @media screen and (max-width: 699px) {
-            left: 60%;
+            left: 55%;
     }
     div{
         @media screen and (min-width: 360px) {
@@ -305,6 +307,7 @@ const BigHead = styled.div`
     border-top-right-radius : 20px;
     display: flex;
     align-items:center ;
+    position: relative;
     div{
         font-size: 32px;
         color: white;
@@ -372,6 +375,41 @@ const BigItems = styled.div`
     }
 `
 
+const BigContact2 = styled.div`
+    position: absolute ;
+    display: flex;
+    justify-content: center ;
+    align-items: center;
+    bottom: 0;
+    width: 100%;
+    height: 12%;
+    background-color: #eae9ee;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    form{
+        input{
+            padding: 3px;
+            border: none;
+            border-radius: 7px;
+            background-color: #91c5f2;
+            color: white;
+            font-size: 18px;
+            &:hover{
+            transition: 0.4s ease-in-out;
+            background-color: white;
+            border : 1px solid   #91c5f2;
+            color:  #91c5f2;
+            }
+            &:not(:hover){
+                transition: 0.4s ease-in-out;
+                background-color: #91c5f2;
+                color: white;
+            }
+        }
+    }
+    
+`
+
 
 interface SnapshotData {
     artist: [];
@@ -411,6 +449,17 @@ function Session() {
         onSnapshot(dbAllProfile, snapshot);
     },[]);
     
+    const onDelete = async(event : any) => {
+        event.preventDefault();
+        try{
+            await deleteDoc(doc(dbService, "profiles", `${clickDb!.creatorId}`));
+            setClickBox(false);
+        }catch(error){
+            window.alert("문제가 발생했습니다. 다시시도해 주세요.")
+            console.log(error);
+        }
+
+    }
 
     return (
         <Wrapper>
@@ -432,8 +481,9 @@ function Session() {
             <AnimatePresence>
             {clickBox ? (
               <>
-                <Overlay onClick={()=> setClickBox(false)} animate={{ opacity: 1 }} transition={{duration: 0.5}} exit={{ opacity: 0 }}>
+                <Overlay animate={{ opacity: 1 }} transition={{duration: 0.5}} exit={{ opacity: 0 }}>
                     <BigProfile>
+                    <FontAwesomeIcon onClick={()=> setClickBox(false)} style={{position : "absolute" , top : "4%", right: "7%", zIndex : 3}} icon={faArrowAltCircleLeft} size="2x"/>
                         <BigHead>
                             <div>Profile</div>
                         </BigHead>
@@ -460,10 +510,17 @@ function Session() {
                                 <BigItems>{clickDb?.music.map(prev => <span>{prev}</span>)}</BigItems>
                             </BigItem>
                         </BigMainInfo>
-                        <BigContact>
-                            <div>Contact with Instargram</div>
-                            <a href="https://www.instagram.com/?hl=ko">{clickDb?.instarId}</a>
-                        </BigContact>
+                        {clickDb?.creatorId === localStorage.getItem("uid") ?
+                            <BigContact2> 
+                                <form onSubmit={onDelete}>
+                                    <input type="submit" value={"삭제하기"} ></input>
+                                </form>
+                            </BigContact2>
+                            : 
+                            <BigContact>
+                                <div>Contact with Instargram</div>
+                                <a href="https://www.instagram.com/?hl=ko">{clickDb?.instarId}</a> 
+                            </BigContact> }
                     </BigProfile>
                 </Overlay>
               </>

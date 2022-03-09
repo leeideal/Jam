@@ -20,22 +20,29 @@ interface IForm {
 }
 
 const Wapper = styled.form`
-    width: 60%;
+    margin-top: 70px ;
+    width: 90%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center ;
 `
 
 const Item = styled.div`
-
+    height: 85px;
 `
 
-const Items = styled.div`
-
+const ItemG = styled.div`
+    @media screen and (max-width: 600px) {
+        height: 105px;
+    }
+    height: 85px;
 `
 
 const Tag = styled.div`
-
+    margin-bottom: 2% ;
+    font-size: 16px ;
+    color: rgba(0,0,0,0.4);
 `
 
 const Name = styled.input`
@@ -43,7 +50,7 @@ const Name = styled.input`
 `
 
 const Poto = styled.input`
-
+    display: none ;
 `
 const Prepoto = styled.img`
     width : 200px;
@@ -75,30 +82,114 @@ const Instar = styled.input`
 `
 
 const Submit = styled.input`
-    width: 60px;
-`
-
-const Unp = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`
-
-const UnpBtn = styled.button`
-
+    margin-top: 50px;
+    width: 100px;
+    padding: 3px;
+    border: none;
+    border-radius: 7px;
+    background-color: #91c5f2;
+    color: white;
+    font-size: 18px;
+    &:hover{
+    transition: 0.4s ease-in-out;
+    background-color: white;
+    border : 1px solid   #91c5f2;
+    color:  #91c5f2;
+    }
+    &:not(:hover){
+        transition: 0.4s ease-in-out;
+        background-color: #91c5f2;
+        color: white;
+    }
 `
 
 const Showprofile = styled.div`
-     width: 60%;
+    margin-top: 70px ;
+    width: 90%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center ;
 `
 
 const FixPoto = styled.div`
- cursor: pointer;
+    margin-left: 20px ;
+    cursor: pointer;
+    display: flex ;
+    justify-content: center;
+    align-items: center ;
+    width: 70px;
+    padding: 3px;
+    border: none;
+    border-radius: 7px;
+    background-color: #dfe6e9;
+    color: black;
+    font-size: 16px;
+    &:hover{
+    transition: 0.4s ease-in-out;
+    background-color: white;
+    border : 1px solid   #dfe6e9;
+    color:  rgba(0,0,0,0.5);
+    }
+    &:not(:hover){
+        transition: 0.4s ease-in-out;
+        background-color: #dfe6e9;
+        color: black;
+    }
+`
+
+const ProfilePoto= styled.div`
+    display:flex ;
+    flex-direction: column ;
+    align-items:center ;
+
+`
+
+const ProfileBasic = styled.div`
+    margin-top: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around ;
+`
+
+const ProfileBasicInfo = styled.div`
+    margin-right: 10px;
+`
+
+const ProfileMusicInfo = styled.div`
+    margin-left: 10px;
+`
+
+const PotoBtn = styled.div`
+    margin-top: 10px ;
+    display: flex;
+    align-items: center ;
+`
+
+const PotoLabel = styled.label`
+    margin-right: 20px ;
+    cursor: pointer;
+    display: flex ;
+    justify-content: center;
+    align-items: center ;
+    width: 70px;
+    padding: 3px;
+    border: none;
+    border-radius: 7px;
+    background-color: #dfe6e9;
+    color: black;
+    font-size: 16px;
+    &:hover{
+    transition: 0.4s ease-in-out;
+    background-color: white;
+    border : 1px solid   #dfe6e9;
+    color:  rgba(0,0,0,0.5);
+    }
+    &:not(:hover){
+        transition: 0.4s ease-in-out;
+        background-color: #dfe6e9;
+        color: black;
+    }
 `
 
 
@@ -149,6 +240,24 @@ function Logprofile() {
 
     const onValid = async (data : IForm) => {
         console.log("hello");
+        const check = (str:string) => {
+            if (str.split(',').length - 1 === 1){
+                var patt1 =  /[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+[ ]*[-]+[ ]*[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+[ ]*[,]+[ ]*[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+[ ]*[-]+[ ]*[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+/g;
+                const result1 = patt1.test(str);
+                return result1;
+            }else if(str.split(',').length - 1 > 1){
+                window.alert("확인")
+            }else if(str.includes(",") === false){
+                var patt =  /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+[ ]*[-]+[ ]*[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/g;
+                const result = patt.test(str);
+                return result
+            }
+        }
+        const checkResult = check(data.music);
+        if (checkResult === false){
+            window.alert("입력내용을 다시 확인해주세요.");
+            return null
+        }
         try {
             const fileRef = ref(storageService, `${userObj.uid}/${v4()}`);
             const response = await uploadString(fileRef, attachment);
@@ -228,111 +337,119 @@ function Logprofile() {
             {fixProfile ? 
             // 프로파일 화면
             <Showprofile>
-                <Item style={{display: "flex", justifyContent :"space-between"}}>
-                <Items>
-                    <Tag>활동명 : </Tag>
-                    <div>{pname ? pname : "이름을 설정해주세요"}</div>
-                </Items>
-                <Items>
-                    <Tag>프로필 사진 : </Tag>
+                <ProfilePoto>
                         <Prepoto src={ppoto ? ppoto : "https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"}/>
-                </Items>
-                </Item>
-                <Item>
-                    <Tag>희망 세션 : </Tag>
-                    {pinstrument ? pinstrument.map(prev => <span key={prev}> {prev} </span>) : "원하는 악기를 설정해주세요"}
-                </Item>
-                <Item>
-                    <Tag>좋아하는 음악장르</Tag>
-                    {pgenre ? pgenre.map(prev => <span key={prev}> {prev} </span>) : "원하는 악기를 설정해주세요"}
-                </Item>
-                <Item>
-                    <Tag>좋아하는 아티스트</Tag>
-                    <div>{partist ? partist : "좋아하는 아티스트를 설정해주세요"}</div>
-                </Item>
-                <Item>
-                    <Tag>하고싶은 곡</Tag>
-                    <div>{pmusic ? pmusic : "연주하고 싶은 곡을 설정해주세요"}</div>
-                </Item>
-                <Item>
-                    <Tag>간단한 자기소개</Tag>
-                    <div>{pintroduce ? pintroduce : "자신을 소개해주세요!"}</div>
-                </Item>
-                <Item>
-                    <Tag>인스타그램 아이디</Tag>
-                    <div>{pinstar ? pinstar : "아이디를 입력해주세요"}</div>
-                </Item>
+                </ProfilePoto>
+                <ProfileBasic>
+                    <ProfileBasicInfo>
+                        <Item>
+                            <Tag>Name </Tag>
+                            <div>{pname ? pname : null}</div>
+                        </Item>
+                        <Item>
+                            <Tag>Instargram ID</Tag>
+                            <div>{pinstar ? pinstar : null}</div>
+                        </Item>
+                        <Item>
+                            <Tag>Introduction</Tag>
+                            <div>{pintroduce ? pintroduce : null}</div>
+                        </Item>
+                    </ProfileBasicInfo>
+                    <ProfileMusicInfo>
+                        <Item>
+                            <Tag>Session </Tag>
+                            {pinstrument ? pinstrument.map(prev => <span key={prev}> {prev} </span>) : null}
+                        </Item>
+                        <Item>
+                            <Tag>Favorite Genre</Tag>
+                            {pgenre ? pgenre.map(prev => <span key={prev}> {prev} </span>) : null}
+                        </Item>
+                        <Item>
+                            <Tag>Favorite Artist</Tag>
+                            <div>{partist ? partist : null}</div>
+                        </Item>
+                        <Item>
+                            <Tag>A Music Want To Play</Tag>
+                            <div>{pmusic ? pmusic : null}</div>
+                        </Item>
+                    </ProfileMusicInfo>
+                </ProfileBasic>
                 <Submit onClick={clickfix} type = "submit" value="수정하기"/>
             </Showprofile>
             : 
             // 프로파일 수정화면
             <Wapper onSubmit={handleSubmit(onValid, unValid)}>
-            <Item style={{display: "flex", justifyContent :"space-between"}}>
-                <Items>
-                    <Tag>활동명 : </Tag>
-                    <Name {...register("name", {required : true,})} type="text" placeholder="Ex) 제제"/>
-                </Items>
-                <Items>
-                    <Tag>프로필 사진 : </Tag>
-                    <Poto {...register("poto")} onClick = {() => setClickPoto(prev => prev+1)} ref={potoRef} accept="image/*" onChange={onFileChange} type="file"/>
-                    <div>
-                        <Prepoto src={clickPoto === 0 ? ppoto ? ppoto : "https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927" :  attachment}/>
-                        <FixPoto onClick={onClearPhoto}>기본으로 설정</FixPoto>
-                    </div>
-                </Items>
-            </Item>
-            <Item>
-                <Tag>희망 세션 : </Tag>
-                <Instrument {...register("instrument", {required : true,})} type="checkbox" value="보컬"/>
-                <label htmlFor="보컬">보컬</label>
-                <Instrument {...register("instrument", {required : true,})} type="checkbox" value="통기타" />
-                <label htmlFor="통기타">통기타</label>
-                <Instrument {...register("instrument", {required : true,})} type="checkbox" value="일렉기타" />
-                <label htmlFor="일렉기타">일렉기타</label>
-                <Instrument {...register("instrument", {required : true,})} type="checkbox" value="베이스" />
-                <label htmlFor="베이스">베이스</label>
-                <Instrument {...register("instrument", {required : true,})} type="checkbox" value="키보드" />
-                <label htmlFor="키보드">키보드</label>
-                <Instrument {...register("instrument", {required : true,})} type="checkbox" value="신디사이저" />
-                <label htmlFor="신디사이저">신디사이저</label>
-                <Instrument {...register("instrument", {required : true,})} type="checkbox" value="드럼" />
-                <label htmlFor="드럼">드럼</label>
-            </Item>
-            <Item>
-                <Tag>좋아하는 음악장르</Tag>
-                <Genre {...register("genre", {required : true,})} type="checkbox" value="발라드"/>
-                <label htmlFor="발라드">발라드</label>
-                <Genre {...register("genre", {required : true,})} type="checkbox" value="POP" />
-                <label htmlFor="POP">POP</label>
-                <Genre {...register("genre", {required : true,})} type="checkbox" value="K-POP" />
-                <label htmlFor="K-POP">K-POP</label>
-                <Genre {...register("genre", {required : true,})} type="checkbox" value="랩/힙합" />
-                <label htmlFor="랩/힙합">랩/힙합</label>
-                <Genre {...register("genre", {required : true,})} type="checkbox" value="RnB/Soul" />
-                <label htmlFor="RnB/Soul">RnB/Soul</label>
-                <Genre {...register("genre", {required : true,})} type="checkbox" value="인디음악" />
-                <label htmlFor="인디음악">인디음악</label>
-                <Genre {...register("genre", {required : true,})} type="checkbox" value="록/메탈" />
-                <label htmlFor="록/메탈">록/메탈</label>
-                <Genre {...register("genre", {required : true,})} type="checkbox" value="포크/블루스" />
-                <label htmlFor="포크/블루스">포크/블루스</label>
-            </Item>
-            <Item>
-                <Tag>좋아하는 아티스트</Tag>
-                <Singer {...register("artist", {required : true,})} type="text" placeholder="Ex) 아이유, 백현"/>
-            </Item>
-            <Item>
-                <Tag>하고싶은 곡</Tag>
-                <Music {...register("music", {required : true,})} type="text" placeholder="Ex) 아이유-삐삐, 백예린-Square"/>
-            </Item>
-            <Item>
-                <Tag>간단한 자기소개</Tag>
-                <Introduce {...register("introduce", {required : true,})} type="text" style={{width:"50%"}} placeholder="30자 이내" maxLength={30}/>
-            </Item>
-            <Item>
-                <Tag>인스타그램 아이디</Tag>
-                <Instar {...register("instarId", {required : true,})} type="text" placeholder="Ex) leeideal"/>
-            </Item>
+            <ProfilePoto>
+                <Poto {...register("poto")} onClick = {() => setClickPoto(prev => prev+1)} ref={potoRef} accept="image/*" onChange={onFileChange} type="file" id="p"/>
+                <Prepoto src={clickPoto === 0 ? ppoto ? ppoto : "https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927" :  attachment}/>
+                <PotoBtn>
+                    <PotoLabel htmlFor="p">업로드</PotoLabel>
+                    <FixPoto onClick={onClearPhoto}>기본</FixPoto>
+                </PotoBtn>
+            </ProfilePoto>
+            <ProfileBasic>
+                <ProfileBasicInfo>
+                    <Item>
+                        <Tag>Name</Tag>
+                        <Name {...register("name", {required : true,})} type="text" placeholder="Ex) 이상돈"/>
+                    </Item>
+                    <Item>
+                    <Item>
+                        <Tag>Instargram ID</Tag>
+                        <Instar {...register("instarId", {required : true,})} type="text" placeholder="Ex) leeideal"/>
+                    </Item>
+                    <Tag>Introduction</Tag>
+                        <Introduce {...register("introduce", {required : true,})} type="text" placeholder="20자 이내" maxLength={20}/>
+                    </Item>
+                </ProfileBasicInfo>
+                    <ProfileMusicInfo>
+                        <Item>
+                            <Tag>Session </Tag>
+                            <Instrument {...register("instrument", {required : true,})} type="checkbox" value="보컬"/>
+                            <label htmlFor="보컬">보컬</label>
+                            <Instrument {...register("instrument", {required : true,})} type="checkbox" value="통기타" />
+                            <label htmlFor="통기타">통기타</label>
+                            <Instrument {...register("instrument", {required : true,})} type="checkbox" value="일렉기타" />
+                            <label htmlFor="일렉기타">일렉기타</label>
+                            <Instrument {...register("instrument", {required : true,})} type="checkbox" value="베이스" />
+                            <label htmlFor="베이스">베이스</label>
+                            <Instrument {...register("instrument", {required : true,})} type="checkbox" value="키보드" />
+                            <label htmlFor="키보드">키보드</label>
+                            <Instrument {...register("instrument", {required : true,})} type="checkbox" value="신디사이저" />
+                            <label htmlFor="신디사이저">신디사이저</label>
+                            <Instrument {...register("instrument", {required : true,})} type="checkbox" value="드럼" />
+                            <label htmlFor="드럼">드럼</label>
+                        </Item>
+                        <ItemG>
+                            <Tag>Favorite Genre</Tag>
+                            <Genre {...register("genre", {required : true,})} type="checkbox" value="발라드"/>
+                            <label htmlFor="발라드">발라드</label>
+                            <Genre {...register("genre", {required : true,})} type="checkbox" value="POP" />
+                            <label htmlFor="POP">POP</label>
+                            <Genre {...register("genre", {required : true,})} type="checkbox" value="K-POP" />
+                            <label htmlFor="K-POP">K-POP</label>
+                            <Genre {...register("genre", {required : true,})} type="checkbox" value="랩/힙합" />
+                            <label htmlFor="랩/힙합">랩/힙합</label>
+                            <Genre {...register("genre", {required : true,})} type="checkbox" value="RnB/Soul" />
+                            <label htmlFor="RnB/Soul">RnB/Soul</label>
+                            <Genre {...register("genre", {required : true,})} type="checkbox" value="인디음악" />
+                            <label htmlFor="인디음악">인디음악</label>
+                            <Genre {...register("genre", {required : true,})} type="checkbox" value="록/메탈" />
+                            <label htmlFor="록/메탈">록/메탈</label>
+                            <Genre {...register("genre", {required : true,})} type="checkbox" value="포크/블루스" />
+                            <label htmlFor="포크/블루스">포크/블루스</label>
+                        </ItemG>
+                        <Item>
+                            <Tag>Favorite Artist</Tag>
+                            <Singer {...register("artist", {required : true,})} type="text" placeholder="Ex) 아이유, 백현"/>
+                        </Item>
+                        <Item>
+                            <Tag>A Music Want To Play
+                                ("가수 - 노래, ... "와 같이 최대 2곡)</Tag>
+                            <Music {...register("music", {required : true,})} type="text" placeholder="Ex) 아이유-삐삐, 백예린-Square"/>
+                        </Item>
+                </ProfileMusicInfo>
+            </ProfileBasic>
             <Submit type = "submit" value="저장하기"/>
         </Wapper> 
         }
