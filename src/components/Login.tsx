@@ -210,7 +210,7 @@ const Bar = styled.div`
 
 
 function Login() {
-    const loginMatch = useMatch("/login");
+    const loginMatch = useMatch("/Jam/login");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const auth = getAuth();
@@ -231,7 +231,7 @@ function Login() {
         try {
                 const data = await signInWithEmailAndPassword(auth, email, password);
                 console.log(data);
-                navigate("/");
+                navigate("/Jam");
         }catch (err){
             window.alert("문제가 발생하였습니다. 다시확인해주시기 바랍니다.");
         }
@@ -244,11 +244,11 @@ function Login() {
             if(button.name === "google"){
                 provider = new GoogleAuthProvider();
                 await signInWithPopup(auth, provider);
-                navigate("/");
+                navigate("/Jam");
             }else if(button.name === "facebook"){
                 provider = new FacebookAuthProvider();
                 await signInWithPopup(auth, provider);
-                navigate("/");
+                navigate("/Jam");
             }
         }catch (error) {
             window.alert("문제가 발생하였습니다. 다시확인해주시기 바랍니다.");
@@ -259,7 +259,7 @@ function Login() {
             {loginMatch ? (
                     <LoginOverlay animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                         <LoginBox>
-                            <Link to="/">
+                            <Link to="/Jam">
                                 <FontAwesomeIcon style={{position : "absolute" , top : 30, right: 30}} icon={faArrowAltCircleLeft} size="2x"/>
                             </Link>
                             <Title>LOGIN</Title>
@@ -267,7 +267,7 @@ function Login() {
                                 <IdLogIn onChange={onChange} value={email} name="email" type="text" placeholder="Email" required />
                                 <PassLogIn onChange={onChange} value={password} name="password" type="password" placeholder="Password" required />
                                 <LogButton type="submit" value={"Log In"} style={{fontSize:"18px"}}/>
-                                <Welcome onClick={() => navigate("/auth")}>Sign Up</Welcome>
+                                <Welcome onClick={() => navigate("/Jam/auth")}>Sign Up</Welcome>
                             </LoginForm>
                                 <Bar></Bar>
                                 <GoogleLog onClick={onSocialClick} name="google"> <FontAwesomeIcon icon={faGoogle} size="2x"/> <div>Sing in with Google</div>  </GoogleLog>

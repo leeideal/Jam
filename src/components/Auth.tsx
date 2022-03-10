@@ -109,7 +109,7 @@ const LoginForm = styled.form`
 
 
 function Auth() {
-    const loginMatch = useMatch("/auth");
+    const loginMatch = useMatch("/Jam/auth");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const auth = getAuth();
@@ -129,7 +129,7 @@ function Auth() {
         // 회원가입 + 로그인 기능
         try {
                 await createUserWithEmailAndPassword(auth, email, password);
-                navigate("/");
+                navigate("/Jam");
             }catch (err){
                 window.alert("문제가 발생하였습니다. 다시확인해주시기 바랍니다.");
         }
@@ -140,7 +140,7 @@ function Auth() {
             {loginMatch ? (
                     <LoginOverlay animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                         <LoginBox>
-                            <Link to="/login">
+                            <Link to="/Jam/login">
                                 <FontAwesomeIcon style={{position : "absolute" , top : 30, right: 30}} icon={faArrowAltCircleLeft} size="2x"/>
                             </Link>
                             <Title>SIGN UP</Title>

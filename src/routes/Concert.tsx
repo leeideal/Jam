@@ -157,6 +157,7 @@ const BigCreatTeam = styled(motion.div)`
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content:flex-start;
 `
 
 const CreatTeamTitle = styled(Title)`
@@ -177,6 +178,7 @@ const CreatTeamTitle = styled(Title)`
 `
 
 const CreateTeamSubmit = styled.form`
+    margin-top: -40px ;
 `
 
 const CreatItem = styled.div`
@@ -204,7 +206,7 @@ const Team = styled.input`
     @media screen and (min-width: 700px) {
     }
     margin: 0 5%;
-    margin-bottom: 2%;
+    margin-bottom: 1.5%;
 `
 
 const TeamCheckBox = styled.input`
@@ -319,7 +321,6 @@ const Bigteam = styled(motion.div)`
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center ;
 `
 
 const BigItem = styled.div`
@@ -432,6 +433,7 @@ const BigHead = styled.div`
 const BigMainInfo = styled.div`
     position: absolute;
     top: 48%;
+    margin: 0 10%;
     width: 80%;
     display: grid ;
     grid-template-columns: repeat(2, 1fr);
@@ -581,7 +583,7 @@ const CreatTeamTag = styled.div`
     margin: 0 5%;
     font-size: 15px ;
     color: rgba(0,0,0,0.4);
-    margin-bottom: 2%;
+    margin-bottom: 1.5%;
 `
 
 const FalseWrapper = styled(Wrapper)`
@@ -591,6 +593,23 @@ const FalseWrapper = styled(Wrapper)`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+`
+
+const NoMobile = styled.div`
+    @media screen and (min-width: 360px) and (min-height:550px) {
+        display: none;
+  }
+  position: absolute;
+  z-index: 99;
+  height: 400%;
+  background-color: #263238;
+  color : white;
+  width: 100vw;
+  display: flex;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
 `
 
 
@@ -758,6 +777,17 @@ function Concert() {
         setValue("instarId", clickDb!.instarId);
     }
 
+    const btnClick = () => {
+        setCreatTeam(true)
+        setValue("name", "");
+        setValue("genre", "");
+        setValue("session", "");
+        setValue("place", "");
+        setValue("music", "");
+        setValue("introduce", "");
+        setValue("instarId", "");
+    }
+
 
     return (
         <Wrapper>
@@ -775,7 +805,7 @@ function Concert() {
                 </Teamfile>)}
                 </ShowTeam>
                 <CreateTeam>
-                    <Button onClick={()=>setCreatTeam(true)}>{creatTeam ? null: "Jam 만들기"}</Button>
+                    <Button onClick={btnClick}>{creatTeam ? null: "Jam 만들기"}</Button>
                 </CreateTeam>
             </SessionBox>
             <AnimatePresence>
@@ -974,9 +1004,11 @@ function Concert() {
                     <BigCreatTeam><FalseWrapper>
                     <FontAwesomeIcon onClick={()=>setCreatTeam(false)} style={{position : "absolute" , top : "4%", right: "7%", zIndex : 3}} icon={faArrowAltCircleLeft} size="2x"/>
                 <div style={{marginBottom : "50px", fontSize:"32px"}}>로그인 후 사용하실수 있습니다!</div>
-                <Link to="/login"><Button >LogIn</Button></Link>
+                <Link to="/Jam/login"><Button >LogIn</Button></Link>
                 </FalseWrapper></BigCreatTeam></Overlay> : null}
           </AnimatePresence>
+          <NoMobile>화면이 너무 작습니다.<br></br> 
+            노트북이나 컴퓨터로 접속을 권장합니다.</NoMobile>
         </Wrapper>
     );
 }

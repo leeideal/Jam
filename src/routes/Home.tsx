@@ -116,12 +116,12 @@ const cellVariants2 = {
 };
 
 const NoMobile = styled.div`
-    @media screen and (min-width: 360px) and (min-height:780px) {
+    @media screen and (min-width: 360px) and (min-height:550px) {
         display: none;
   }
   position: absolute;
   z-index: 99;
-  height: 100vh;
+  height: 400%;
   background-color: #263238;
   color : white;
   width: 100vw;
@@ -177,11 +177,11 @@ function Home() {
                 <Write>
                     {checkLog === true ? <><Title>시작하세요!</Title>
                     <Msg>팀을 만들어 당신의 음악을 즐기세요!</Msg>
-                    <Link to="/concert"><Button>Jam하러가기</Button></Link>
+                    <Link to="/Jam/concert"><Button>Jam하러가기</Button></Link>
                     </>  :
                     <><Title>환영합니다!</Title>
                     <Msg>Jam에 오신걸 환영합니다!</Msg>
-                    <Link to="/login"><Button >LogIn</Button></Link>
+                    <Link to="/Jam/login"><Button >LogIn</Button></Link>
                     </>} 
                 </Write>
             </Cell>
@@ -200,7 +200,8 @@ function Home() {
                         당신의 실력을 보여주세요!</Msg>
                 </Write>
             </CellM>
-            <NoMobile><div>화면이 너무 작습니다. 더 큰 화면으로 접속부탁드립니다.</div></NoMobile>
+            <NoMobile>화면이 너무 작습니다.<br></br> 
+            노트북이나 컴퓨터로 접속을 권장합니다.</NoMobile>
             <Login />
         </Wrapper>
     );

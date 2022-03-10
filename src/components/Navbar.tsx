@@ -87,11 +87,11 @@ const navVariants = {
 function Navbar() {
 const {scrollY} = useViewportScroll();
 const navAnimation = useAnimation();
-const homem = useMatch("/");
-const sessionm = useMatch("/session");
-const concertm = useMatch("/concert");
-const profilem = useMatch("/profile");
-const contactm = useMatch("/contact");
+const homem = useMatch("/Jam");
+const sessionm = useMatch("/Jam/session");
+const concertm = useMatch("/Jam/concert");
+const profilem = useMatch("/Jam/profile");
+const contactm = useMatch("/Jam/contact");
 const auth = getAuth();
 const navigate = useNavigate();
 const [checkLog, setCheckLog]= useRecoilState(isLogin);
@@ -109,7 +109,7 @@ useEffect(() => {
 
 const onLogOutClick = () => {
     auth.signOut();
-    navigate("/");
+    navigate("/Jam");
     localStorage.clear();
     auth.signOut();
 }
@@ -119,22 +119,22 @@ return (
     <Navbox variants={navVariants} animate={navAnimation} initial={"top"}>
         <Items>
             <Item>
-                <div onClick={()=> navigate("/")}>{homem && <Here layoutId="here"/>}Home</div>
+                <div onClick={()=> navigate("/Jam")}>{homem && <Here layoutId="here"/>}Home</div>
             </Item>
             <Item>
-                <div onClick={()=> navigate("/session")}>{sessionm && <Here layoutId="here"/>}Session</div>    
+                <div onClick={()=> navigate("/Jam/session")}>{sessionm && <Here layoutId="here"/>}Session</div>    
             </Item>
             <Item>
-                <div onClick={()=> navigate("/concert")}>{concertm && <Here layoutId="here"/>}Concert</div>    
+                <div onClick={()=> navigate("/Jam/concert")}>{concertm && <Here layoutId="here"/>}Concert</div>    
             </Item>
             <Item>
-                <div onClick={()=> navigate("/profile")}>{profilem && <Here layoutId="here"/>} Profile</div>     
+                <div onClick={()=> navigate("/Jam/profile")}>{profilem && <Here layoutId="here"/>} Profile</div>     
             </Item>
             <Item>
-                <div onClick={()=> navigate("/contact")}>{contactm && <Here layoutId="here"/>}Contact</div>     
+                <div onClick={()=> navigate("/Jam/contact")}>{contactm && <Here layoutId="here"/>}Contact</div>     
             </Item>
         </Items>
-        {checkLog ? <Button onClick={onLogOutClick}>LogOut</Button> : <Link to="/login"><Button >LogIn</Button></Link> } 
+        {checkLog ? <Button onClick={onLogOutClick}>LogOut</Button> : <Link to="/Jam/login"><Button >LogIn</Button></Link> } 
     </Navbox>
     );
 }

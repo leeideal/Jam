@@ -56,6 +56,23 @@ const Button = styled.button`
     }
 `
 
+const NoMobile = styled.div`
+    @media screen and (min-width: 360px) and (min-height:550px) {
+        display: none;
+  }
+  position: absolute;
+  z-index: 99;
+  height: 400%;
+  background-color: #263238;
+  color : white;
+  width: 100vw;
+  display: flex;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+`
+
 function Profile() {
     const checkLog = useRecoilValue(isLogin);
     return (
@@ -64,8 +81,10 @@ function Profile() {
                 <Logprofile />
             </Wrapper> : <FalseWrapper>
                 <div style={{marginBottom : "50px", fontSize:"42px"}}>로그인 후 사용하실수 있습니다!</div>
-                <Link to="/login"><Button >LogIn</Button></Link>
+                <Link to="/Jam/login"><Button >LogIn</Button></Link>
                 </FalseWrapper>}
+                <NoMobile>화면이 너무 작습니다.<br></br> 
+            노트북이나 컴퓨터로 접속을 권장합니다.</NoMobile>
         </>
     );
 }

@@ -12,12 +12,12 @@ function RouteView() {
         <Router>
             <Navbar />
             <Routes>
-                <Route path="/*" element={<Home />}></Route>
-                <Route path="/session/*" element={<Session />}></Route>
-                <Route path="/concert" element={<Concert />}></Route>
-                <Route path="/profile" element={<Profile />}></Route>
-                <Route path="/contact" element={<Contact />}></Route>
-                <Route path="/auth" element={<Auth />}></Route>
+                <Route path="/Jam/*" element={<Home />}></Route>
+                <Route path="/Jam/session/*" element={<Session />}></Route>
+                <Route path="/Jam/concert" element={<Concert />}></Route>
+                <Route path="/Jam/profile" element={<Profile />}></Route>
+                <Route path="/Jam/contact" element={<Contact />}></Route>
+                <Route path="/Jam/auth" element={<Auth />}></Route>
             </Routes>
         </Router>
     );

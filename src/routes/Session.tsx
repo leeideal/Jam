@@ -410,6 +410,23 @@ const BigContact2 = styled.div`
     
 `
 
+const NoMobile = styled.div`
+    @media screen and (min-width: 360px) and (min-height:550px)  {
+        display: none;
+  }
+  position: absolute;
+  z-index: 99;
+  height: 400%;
+  background-color: #263238;
+  color : white;
+  width: 100vw;
+  display: flex;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+`
+
 
 interface SnapshotData {
     artist: [];
@@ -526,6 +543,8 @@ function Session() {
               </>
             ) : null}
           </AnimatePresence>
+          <NoMobile>화면이 너무 작습니다.<br></br> 
+            노트북이나 컴퓨터로 접속을 권장합니다.</NoMobile>
         </Wrapper>
     );
 }
