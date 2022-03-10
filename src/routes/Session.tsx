@@ -129,6 +129,7 @@ const Overlay = styled(motion.div)`
     height: 100%;
     background-color: rgba(0, 0, 0, 0.75);
     opacity: 0;
+    z-index: 30;
 `
 
 const BigProfile = styled(motion.div)`
@@ -150,12 +151,13 @@ const BigProfile = styled(motion.div)`
     }
     background-color: white;
     width: 50%;
-    height: 80%;
+    height: 90%;
     border-radius: 20px;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center ;
+    z-index: 30;
 `
 
 const BigItem = styled.div`
@@ -220,6 +222,10 @@ const Img = styled.img`
     }
     @media screen and (min-width: 1500px) {
         margin-bottom: 4%;
+    }
+    @media screen and (max-height: 900px) {
+        margin-top: -20px;
+        margin-bottom: 2%;
     }
     width: 200px;
     height: 200px;
@@ -329,6 +335,9 @@ const BigName= styled.div`
 `
 
 const BigMainInfo = styled.div`
+    @media screen and (max-height: 900px) {
+        top: 57%;
+    }
     position: absolute;
     top: 54%;
     width: 80%;

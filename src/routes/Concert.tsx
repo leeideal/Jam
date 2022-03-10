@@ -63,7 +63,7 @@ const ShowTeam = styled.div`
     @media screen and (min-width: 2000px) {
         width: 60%;
     }
-    width: 80% ;
+    width: 90% ;
     background-color: #eae9ee;
     border-radius: 15px;
     display: flex;
@@ -152,7 +152,7 @@ const BigCreatTeam = styled(motion.div)`
     }
     background-color: white;
     width: 50%;
-    height: 80%;
+    height: 90%;
     border-radius: 20px;
     position: relative;
     display: flex;
@@ -634,7 +634,7 @@ function Concert() {
                 const result1 = patt1.test(str);
                 return result1;
             }else if(str.split(',').length - 1 > 1){
-                window.alert("확인")
+                window.alert("입력값 조건을 확인바랍니다.")
             }else if(str.includes(",") === false){
                 var patt =  /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+[ ]*[-]+[ ]*[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/g;
                 const result = patt.test(str);
@@ -702,7 +702,7 @@ function Concert() {
                 const result1 = patt1.test(str);
                 return result1;
             }else if(str.split(',').length - 1 > 1){
-                window.alert("확인")
+                window.alert("입력값 조건을 확인바랍니다.")
             }else if(str.includes(",") === false){
                 var patt =  /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+[ ]*[-]+[ ]*[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/g;
                 const result = patt.test(str);

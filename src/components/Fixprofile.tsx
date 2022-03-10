@@ -246,7 +246,7 @@ function Logprofile() {
                 const result1 = patt1.test(str);
                 return result1;
             }else if(str.split(',').length - 1 > 1){
-                window.alert("확인")
+                window.alert("입력값 조건을 확인바랍니다.")
             }else if(str.includes(",") === false){
                 var patt =  /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+[ ]*[-]+[ ]*[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/g;
                 const result = patt.test(str);
