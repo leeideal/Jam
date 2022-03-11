@@ -20,26 +20,68 @@ const Navbox = styled(motion.nav)`
     z-index: 20;
 `
 
+// const Items = styled.div`
+//     @media (max-width: 450px) {
+//         width: 38vh;
+//     }
+//     display: flex;
+//     align-items: center;
+// `;
+
 const Items = styled.div`
     @media (max-width: 450px) {
         width: 38vh;
+        margin-left: 20px;
     }
     display: flex;
     align-items: center;
 `;
 
+// const Item = styled.div`
+//     @media (max-width: 450px) {
+//         width: 40px;
+//         font-size: 16px ;
+//     }
+//     @media (max-height: 780px) {
+//         width: 38px;
+//         margin-right: 15px;
+//         font-size: 14px;
+//     }
+//     position: relative;
+//     width: 100px;
+//     margin-right: 20px;
+//     display: flex;
+//     text-align: center;
+//     justify-content: center;
+//     flex-direction: column;
+//     cursor: pointer;
+//     div:hover {
+//         transition: color 0.3s ease-in-out;
+//         color: red;
+//     }
+// `
 const Item = styled.div`
-    @media (max-width: 450px) {
+    @media (max-width: 450px){
         width: 40px;
         font-size: 16px ;
+    }
+    @media (max-height: 700px) {
+        width: 38px;
+        margin-right: 15px;
+        font-size: 14px;
+    }
+    @media (max-height: 700px) and (min-width: 680px){
+        font-size: 20px ;
+        margin-right: 50px;
     }
     position: relative;
     width: 100px;
     margin-right: 20px;
     display: flex;
     text-align: center;
-    justify-content: center;
     flex-direction: column;
+    justify-content: center;
+    align-items:center;
     cursor: pointer;
     div:hover {
         transition: color 0.3s ease-in-out;
@@ -49,12 +91,11 @@ const Item = styled.div`
 
 const Here = styled(motion.div)`
     position: absolute;
+    bottom: -5px;
     width: 40px;
     height: 4px;
     border-radius: 10px;
     background-color: red;
-    left : 30%;
-    bottom: -10px;
 `
 
 const Button = styled.div`
@@ -62,6 +103,15 @@ const Button = styled.div`
         font-size: 16px ;
         height: 19px;
     }
+    @media (max-height: 700px) {
+        font-size: 14px ;
+        margin-left: 50px;
+        margin-top: 2px;
+    }
+    @media (max-height: 700px) and (min-width: 680px){
+        font-size: 20px ;
+    }
+    margin-left: 30px;
     width: 50px;
     transition: color 0.3s ease-in-out;
     height: 26px;
@@ -119,19 +169,24 @@ return (
     <Navbox variants={navVariants} animate={navAnimation} initial={"top"}>
         <Items>
             <Item>
-                <div onClick={()=> navigate("/Jam")}>{homem && <Here layoutId="here"/>}Home</div>
+                <div onClick={()=> navigate("/Jam")}>Home</div>
+                {homem && <Here layoutId="here"/>}
             </Item>
             <Item>
-                <div onClick={()=> navigate("/Jam/session")}>{sessionm && <Here layoutId="here"/>}Session</div>    
+                <div onClick={()=> navigate("/Jam/session")}>Session</div>
+                {sessionm && <Here layoutId="here"/>}
             </Item>
             <Item>
-                <div onClick={()=> navigate("/Jam/concert")}>{concertm && <Here layoutId="here"/>}Concert</div>    
+                <div onClick={()=> navigate("/Jam/concert")}>Concert</div>
+                {concertm && <Here layoutId="here"/>}
             </Item>
             <Item>
-                <div onClick={()=> navigate("/Jam/profile")}>{profilem && <Here layoutId="here"/>} Profile</div>     
+                <div onClick={()=> navigate("/Jam/profile")}>Profile</div>
+                {profilem && <Here layoutId="here"/>}     
             </Item>
             <Item>
-                <div onClick={()=> navigate("/Jam/contact")}>{contactm && <Here layoutId="here"/>}Contact</div>     
+                <div onClick={()=> navigate("/Jam/contact")}>Contact</div>
+                {contactm && <Here layoutId="here"/>}
             </Item>
         </Items>
         {checkLog ? <Button onClick={onLogOutClick}>LogOut</Button> : <Link to="/Jam/login"><Button >LogIn</Button></Link> } 

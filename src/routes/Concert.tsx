@@ -596,7 +596,7 @@ const FalseWrapper = styled(Wrapper)`
 `
 
 const NoMobile = styled.div`
-    @media screen and (min-width: 360px) and (min-height:550px) {
+    @media screen and (min-width: 350px) and (min-height:540px) {
         display: none;
   }
   position: absolute;
@@ -608,7 +608,8 @@ const NoMobile = styled.div`
   display: flex;
   top: 0;
   justify-content: center;
-  align-items: center;
+  padding-top: 50px;
+  align-items: flex-start;
   font-size: 26px;
 `
 
